@@ -1,0 +1,49 @@
+body{
+    font-family: 'Courier New', Courier, monospace;
+    background-color: rgb(127, 255, 244);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    color: rgb(25, 0, 255);
+    background-color: blanchedalmond;
+}
+
+label {
+    background-color: rgb(20, 255, 204);
+    color: rgb(184, 11, 11);
+    font-size: 30px;
+}
+
+#userLabel {
+    font-style: oblique;
+}
+
+#gender {
+    font-style: oblique;
+}
+
+#passLabel {
+    font-style: oblique;
+}
+
+.labelClass {
+    font-size: x-large;
+}
+form {
+    width: 400px;
+    background-color: rgb(210, 162, 30);
+    padding: 20px;
+    border-radius: 5px;
+}
+button {
+    background-color: rgb(0, 119, 255);
+    padding: 10px;
+    border-radius: 10px;
+    font-size: large;
+    width: 100px;
+    font-family: 'Courier New', Courier, monospace;
+}
