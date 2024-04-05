@@ -1,0 +1,52 @@
+.fixed {
+    position: fixed;
+    left: 0;
+    top: 0;
+    color: aqua;
+    background-color: crimson;
+    width: 100%;
+    padding: 10px;
+}
+
+b{
+    font-size: large;
+    font-style: normal;
+    left: 100%;
+    background-color: black;
+    color: blueviolet;
+    width: 100px;
+}
+
+
+.menu {
+    width: 100%;
+    margin: 5px;
+    padding: 10px;
+}
+
+.post1{
+    position:absolute;
+    left: 500px;
+    top: 120px;
+    width: 300px;
+    height: 400px;
+    background-color: aqua;
+    color: blue;
+    padding: 3%;
+    border: 5px solid pink;
+    border-radius: 2%;
+}
+
+
+.fixed1 {
+    position: fixed;
+    left: 0;
+    top: 87px;
+    text-align: center;
+    color: black;
+    background-color: blueviolet;
+    width: 100px;
+    padding: 50px;
+    height: 100%;
+}
+
