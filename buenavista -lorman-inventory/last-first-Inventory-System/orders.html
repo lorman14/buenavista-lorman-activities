@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders - Inventory System</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="topbar">
+        <h1>Inventory System</h1>
+        <input type="text" class="search-bar" placeholder="Search...">
+    </div>
+    <div class="container">
+        <div class="sidebar">
+            <ul>
+                <li><a href="index.html#dashboard" class="nav-link">Dashboard</a></li>
+                <li><a href="add_items.html" class="nav-link">Add Items</a></li>
+                <li><a href="sales.html" class="nav-link">Sales</a></li>
+                <li><a href="orders.html" class="nav-link active">Orders</a></li>
+            </ul>
+            <ul class="logout">
+                <li><a href="login.html">Logout</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <h2>Orders</h2>
+            <div class="order-summary">
+                <div class="box">
+                    <h3>Total Orders</h3>
+                    <p id="totalOrders">0</p>
+                </div>
+                <div class="box">
+                    <h3>Total Revenue</h3>
+                    <p id="totalRevenue">$0.00</p>
+                </div>
+                <div class="box">
+                    <h3>Most Recent Order</h3>
+                    <p id="recentOrder">-</p>
+                </div>
+            </div>
+            <div class="orders-table-container">
+                <table id="ordersTable">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer Name</th>
+                            <th>Date</th>
+                            <th>Total Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Orders rows will be added here dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let orders = [
+                { id: 1, customerName: 'John Doe', date: '2024-07-02', totalAmount: 150 },
+                { id: 2, customerName: 'Jane Smith', date: '2024-07-01', totalAmount: 250 },
+                // Add more orders data as needed
+            ];
+
+            const ordersTable = document.getElementById('ordersTable').getElementsByTagName('tbody')[0];
+            const totalOrdersElem = document.getElementById('totalOrders');
+            const totalRevenueElem = document.getElementById('totalRevenue');
+            const recentOrderElem = document.getElementById('recentOrder');
+
+            function renderTable() {
+                ordersTable.innerHTML = '';
+                orders.forEach(order => {
+                    const row = ordersTable.insertRow();
+                    row.insertCell(0).textContent = order.id;
+                    row.insertCell(1).textContent = order.customerName;
+                    row.insertCell(2).textContent = order.date;
+                    row.insertCell(3).textContent = `$${order.totalAmount.toFixed(2)}`;
+                });
+                updateSummary();
+            }
+
+            function updateSummary() {
+                const totalOrders = orders.length;
+                const totalRevenue = orders.reduce((sum, order) => sum + order.totalAmount, 0).toFixed(2);
+                const mostRecentOrder = orders.length > 0 ? orders[0].id : '-';
+
+                totalOrdersElem.textContent = totalOrders;
+                totalRevenueElem.textContent = `$${totalRevenue}`;
+                recentOrderElem.textContent = mostRecentOrder;
+            }
+
+            renderTable();
+        });
+    </script>
+</body>
+</html>

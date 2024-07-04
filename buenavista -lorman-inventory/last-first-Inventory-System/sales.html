@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales - Inventory System</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="topbar">
+        <h1>Inventory System</h1>
+        <input type="text" class="search-bar" placeholder="Search...">
+    </div>
+    <div class="container">
+        <div class="sidebar">
+            <ul>
+                <li><a href="index.html#dashboard" class="nav-link">Dashboard</a></li>
+                <li><a href="add_items.html" class="nav-link">Add Items</a></li>
+                <li><a href="sales.html" class="nav-link active">Sales</a></li>
+                <li><a href="orders.html" class="nav-link">Orders</a></li>
+            </ul>
+            <ul class="logout">
+                <li><a href="login.html">Logout</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <h2>Sales Report</h2>
+            <div class="summary">
+                <div class="box">
+                    <h3>Number of Sales</h3>
+                    <p id="numSales">0</p>
+                </div>
+                <div class="box">
+                    <h3>Total Sales</h3>
+                    <p id="totalSales">$0.00</p>
+                </div>
+                <div class="box">
+                    <h3>Average Sale Value</h3>
+                    <p id="avgSaleValue">$0.00</p>
+                </div>
+            </div>
+            <div class="chart-container">
+                <canvas id="salesChart"></canvas>
+            </div>
+            <div class="sales-table-container">
+                <table id="salesTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Product</th>
+                            <th>Date</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Sales rows will be added here dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let sales = [
+                {id: 1, product: 'Product A', date: '2024-01-01', amount: 100},
+                {id: 2, product: 'Product B', date: '2024-01-02', amount: 200},
+                // Add more sales data as needed
+            ];
+
+            const salesTable = document.getElementById('salesTable').getElementsByTagName('tbody')[0];
+            const totalSalesElem = document.getElementById('totalSales');
+            const numSalesElem = document.getElementById('numSales');
+            const avgSaleValueElem = document.getElementById('avgSaleValue');
+
+            function renderTable() {
+                salesTable.innerHTML = '';
+                sales.forEach(sale => {
+                    const row = salesTable.insertRow();
+                    row.insertCell(0).textContent = sale.id;
+                    row.insertCell(1).textContent = sale.product;
+                    row.insertCell(2).textContent = sale.date;
+                    row.insertCell(3).textContent = `$${sale.amount.toFixed(2)}`;
+                });
+                updateSummary();
+            }
+
+            function updateSummary() {
+                const totalSales = sales.reduce((sum, sale) => sum + sale.amount, 0);
+                const numSales = sales.length;
+                const avgSaleValue = numSales ? (totalSales / numSales).toFixed(2) : 0;
+
+                totalSalesElem.textContent = `$${totalSales.toFixed(2)}`;
+                numSalesElem.textContent = numSales;
+                avgSaleValueElem.textContent = `$${avgSaleValue}`;
+            }
+
+            function renderChart() {
+                const ctx = document.getElementById('salesChart').getContext('2d');
+                const labels = sales.map(sale => sale.date);
+                const data = sales.map(sale => sale.amount);
+
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Sales Amount',
+                            data: data,
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1,
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Date'
+                                }
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'Amount ($)'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            renderTable();
+            renderChart();
+        });
+    </script>
+</body>
+</html>
